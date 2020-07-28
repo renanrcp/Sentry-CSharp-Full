@@ -30,26 +30,7 @@ namespace Sentry_Csharp_Full
                             => eventId.Id == 10000
                             && string.Equals(eventId.Name, "Microsoft.EntityFrameworkCore.Update.SaveChangesFailed", StringComparison.Ordinal)
                             && string.Equals(category, "Microsoft.EntityFrameworkCore.Database.Command", StringComparison.Ordinal));
-
-                        // options.AddLogEntryFilter((category, level, eventId, exception)
-                        //     => eventId.Id == 20102
-                        //     && string.Equals(eventId.Name, "Microsoft.EntityFrameworkCore.Database.Command.CommandError", StringComparison.Ordinal)
-                        //     && string.Equals(category, "Microsoft.EntityFrameworkCore.Database.Command", StringComparison.Ordinal));
-                        options.BeforeSend = HandleBeforeEvent;
                     });
                 });
-
-        public static SentryEvent HandleBeforeEvent(SentryEvent sentryEvent)
-        {
-            if (sentryEvent.LogEntry != null)
-            {
-                if (sentryEvent.Logger.Equals("Microsoft.EntityFrameworkCore.Database.Command", StringComparison.InvariantCultureIgnoreCase))
-                {
-                    return null;
-                }
-            }
-
-            return sentryEvent;
-        }
     }
 }

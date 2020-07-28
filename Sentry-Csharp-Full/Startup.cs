@@ -12,6 +12,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Sentry;
+using Sentry.Extensibility;
+using Sentry_Csharp_Full.Event;
 
 namespace Sentry_Csharp_Full
 {
@@ -27,6 +29,8 @@ namespace Sentry_Csharp_Full
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<ISentryEventProcessor, SentryEFCoreEventProccessor>();
+
             services.AddDbContext<SampleContext>((sp, options) =>
             {
                 options.UseLoggerFactory(sp.GetRequiredService<ILoggerFactory>());
