@@ -36,6 +36,8 @@ namespace Sentry_Csharp_Full
                 options.UseLoggerFactory(sp.GetRequiredService<ILoggerFactory>());
                 options.UseApplicationServiceProvider(sp);
                 options.UseNpgsql("YOUR_CONNECTION_STRING_HERE");
+                options.EnableSensitiveDataLogging();
+                options.EnableDetailedErrors();
             });
 
             services.AddControllers();
